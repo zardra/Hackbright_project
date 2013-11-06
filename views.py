@@ -25,8 +25,8 @@ Markdown(app)
 
 @app.route("/")
 def index():
-    posts = Post.query.all()
-    return render_template("index.html", posts=posts)
+    # posts = Post.query.all()
+    return render_template("test.html")
 
 @app.route("/post/<int:id>")
 def view_post(id):
