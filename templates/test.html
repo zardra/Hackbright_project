@@ -6,9 +6,10 @@
 
     <video autoplay></video>
 
-    <form><input type='button' id='snapshot' value="snapshot"/></form> 
+    <form><input type="button" id="snapshot" value="snapshot"/></form> 
  
-    <canvas id='canvas' width='1000' height='500'></canvas> 
+    <canvas id="canvas" width="640" height="500"></canvas> 
+
   
     <script type="text/javascript">
 
@@ -34,15 +35,24 @@
             };
           }, errorCallback);
     } else {
-      alert('getUserMedia() is not supported in your browser');
+      alert("The application is unable to access your camera!");
     }
 
-    document.getElementById('snapshot').onclick = function() { 
-        var video = document.querySelector('video'); 
-        var canvas = document.getElementById('canvas'); 
-        var ctx = canvas.getContext('2d'); 
-        ctx.drawImage(video,0,0, 640, 500); 
+    document.getElementById("snapshot").onclick = function() { 
+        var video = document.querySelector("video"); 
+        var canvas = document.getElementById("canvas"); 
+        var ctx = canvas.getContext("2d"); 
+        ctx.drawImage(video,0,0, 640, 500);
+        var img = document.createElement("img");
+        img.src = canvas.toDataURL("image/png");
+        document.body.appendChild(img);
     } 
+
+
+
+
+
+
 
     </script>
 
