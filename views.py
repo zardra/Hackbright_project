@@ -28,6 +28,16 @@ def index():
     # posts = Post.query.all()
     return render_template("test.html")
 
+
+@app.route("/imgtest", methods=["POST"])
+def imgtest():
+    imgData = request.form.get("img")
+    #print imgData
+    png_file = open("chart_img.png", "wb")
+    png_file.write(imgData[22:].decode("base64"))
+    png_file.close()
+    return "Success"
+
 @app.route("/post/<int:id>")
 def view_post(id):
     post = Post.query.get(id)

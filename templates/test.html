@@ -4,13 +4,12 @@
 </head>
 <body>
 
-    <video autoplay></video>
+    <video autoplay></video> <canvas id="canvas" width="640" height="500"></canvas> 
 
     <form><input type="button" id="snapshot" value="snapshot"/></form> 
- 
-    <canvas id="canvas" width="640" height="500"></canvas> 
+    <form><input type="button" id="send" value="send"/></form>
 
-  
+    <script src="http://code.jquery.com/jquery-2.0.3.js"></script>
     <script type="text/javascript">
 
     function hasGetUserMedia() {
@@ -38,22 +37,29 @@
       alert("The application is unable to access your camera!");
     }
     
+    var img = document.createElement("img");
 
-    document.getElementById("snapshot").onclick = function() { 
+    $("#snapshot").click(function() { 
         var video = document.querySelector("video"); 
         var canvas = document.getElementById("canvas"); 
         var ctx = canvas.getContext("2d"); 
         ctx.drawImage(video,0,0, 640, 500);
-        var img = document.createElement("img");
+        // var img = document.createElement("img");
         img.src = canvas.toDataURL("image/png");
         document.body.appendChild(img);
-    } 
+    }) 
 
 
-
-
-
-
+    $("#send").click(function() {
+        var file = img.src;
+        var fd = new FormData();
+        fd.append("imageNameHere", file);
+        
+        $.post('/imgtest', {"img": file}, function(response){
+            console.log("Yay!");
+            console.log(response);
+        })
+    })
 
     </script>
 
