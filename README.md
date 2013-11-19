@@ -9,20 +9,17 @@ Basic idea:
 
 What is needed:
 1. Code to interact with camera
-    *Different for phone versus computer?
-        *Chris might be good resource for phone interaction
-        *Ask Katie about that camera code she mentioned before
-    *WebRTC (HTML5 & JS)
+    *WebRTC
+    *toDataURL
 2. OCR software
-    *Probably Tesseract since it can learn new languages
-    *There is an API
-        *Does this allow for new language?
+    *Will need to make my own?
 3. Symbol library
     *Start with freeware knitting symbol dictionaries
+        *http://home.earthlink.net/~ardesign/knitfont.htm
         *http://www.knittingfool.com/Reference/KF_Symbols.aspx
         *http://www.knittinguniverse.com/downloads/KFont/
         *http://www.craftyarncouncil.com/chart_knit.html
-    *Problem area: how to handle unusual symbols
+    *Problem area: how to handle symbols that have similar meaning
 4. Code to take in knitting symbols, process it into English, and print them out
     *What would be the best format?
         *PDF for printability?

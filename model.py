@@ -21,9 +21,12 @@ Base.query = session.query_property()
 class User(Base, UserMixin):
     __tablename__ = "users" 
     id = Column(Integer, primary_key=True)
+    username = Column(String(64), nullable=False)
     email = Column(String(64), nullable=False)
     password = Column(String(64), nullable=False)
     salt = Column(String(64), nullable=False)
+    img_id = Column(Integer, ForeignKey("images.id"))
+    dir_id = Column(Integer, ForeignKey("directions.id"))
 
     posts = relationship("Post", uselist=True)
 
@@ -36,9 +39,22 @@ class User(Base, UserMixin):
         password = password.encode("utf-8")
         return bcrypt.hashpw(password, self.salt.encode("utf-8")) == self.password
 
+class Image(Base):
+    __tablename__="images"
+    id = Column(Integer, primary_key=True)
+    filename = Column(String(64), nullable=False)
+    dir_id = Column(Integer, ForeignKey("directions.id"))
+    user_id = Column(Integer, ForeignKey("users.id"))
+
+class Direction(Base):
+    __tablename__="directions"
+    id = Column(Integer, primary_key=True)
+    textfile = Column(String(64), nullable=False)
+    img_id = Column(Integer, ForeignKey("images.id"))
+    user_id = Column(Integer, ForeignKey("users.id"))
+
 class Post(Base):
     __tablename__ = "posts"
-    
     id = Column(Integer, primary_key=True)
     title = Column(String(64), nullable=False)
     body = Column(Text, nullable=False)
