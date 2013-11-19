@@ -25,8 +25,6 @@ class User(Base, UserMixin):
     email = Column(String(64), nullable=False)
     password = Column(String(64), nullable=False)
     salt = Column(String(64), nullable=False)
-    img_id = Column(Integer, ForeignKey("images.id"))
-    dir_id = Column(Integer, ForeignKey("directions.id"))
 
     posts = relationship("Post", uselist=True)
 

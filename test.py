@@ -1,3 +1,19 @@
+def reverse_even_rows(text): 
+    """if chart contains both patterned right-side (RS) and wrong-side (WS) rows,
+    this will reverse the direction of the WS rows so they read in the correct direction."""
+    i = 0
+    l = []
+    
+    while i < len(text):
+        if i%2 != 0:
+            l = text[i].split()
+            l.reverse()
+            text[i] = (" ").join(l)
+        i += 1
+    
+    return text
+
+
 def transform_multiple(words):
     i = 0
     for word in words:
@@ -19,20 +35,22 @@ symbols = {1: "knit", 2: "purl", 3: "ktbl", 4: "ptbl", 5: "bind off", 6: "yo",
 
 f = open("static/text/oldshale.txt")
 text = f.readlines()
-text.reverse()
 f.close()
 
-instructions = []
-i = 1
+text.reverse()
+"""If the chart contains patterned WS rows call reverse_even_rows() on the text"""
 
-for line in text:
-    row = line.split()
-    row_num = "\nRow %d:" % (i)        
-    instructions.append(row_num)
-    for number in row:
-        words = []
-        number = int(number)
-        # words.append(symbols[number])
-        # converted = transform_multiple(words)
-        instructions.append(symbols[number])
-    i += 1
+# instructions = []
+# i = 1
+
+# for line in text:
+#     row = line.split()
+#     row_num = "\nRow %d:" % (i)        
+#     instructions.append(row_num)
+#     i += 1
+#     for number in row:
+#         words = []
+#         number = int(number)
+#         # words.append(symbols[number])
+#         # converted = transform_multiple(words)
+#         instructions.append(symbols[number])
