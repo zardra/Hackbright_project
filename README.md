@@ -1,4 +1,5 @@
 Project plan
+------------
 
 Basic idea:
 1. User takes photo of knitting chart with phone or computer camera.

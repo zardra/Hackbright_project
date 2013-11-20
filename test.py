@@ -48,24 +48,19 @@ change_to_symbols(text)
 
 #Consoldiate multiple instructions
 
-def transform_multiple(words):
+def transform_multiples(text):
     i = 0
+    l = []
 
-    for word in words:
-        if words[i] == words[i+1]:
+    while i < len(text):
+        l = text[i].split()
+        
+        x = 0
+        y = 0
+        
+        if l[x] == l[x+1]:
+            y += 1
+        else:
+            
 
-
-# for line in text:
-#     row = line.split()
-#     row_num = "\nRow %d:" % (i)        
-#     instructions.append(row_num)
-#     i += 1
-#     for number in row:
-#         words = []
-#         number = int(number)
-#         # words.append(symbols[number])
-#         # converted = transform_multiple(words)
-#         instructions.append(symbols[number])
-
-
- 
+        i += 1
