@@ -29,7 +29,7 @@ What is needed:
 
 Transformation steps
 --------------------
-1. Open text file.
+1. Open text file. 
 2. Read it in by line (.readlines()).
 3. Reverse list order because instructions read from bottom of chart up.
 4. How to differentiate between charts with patterning on all rows and those that knit plain on WS?  Maybe a radio button the user can select before sending through conversion?

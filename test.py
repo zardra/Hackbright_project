@@ -49,18 +49,17 @@ change_to_symbols(text)
 #Consoldiate multiple instructions
 
 def transform_multiples(text):
-    i = 0
-    l = []
+    instruction_list = []
+    multi_count = 1
+    prev_instruction = ""
 
-    while i < len(text):
-        l = text[i].split()
-        
-        x = 0
-        y = 0
-        
-        if l[x] == l[x+1]:
-            y += 1
+    for instruction in text:
+        if instruction == prev_instruction:
+            multi_count += 1
         else:
-            
-
-        i += 1
+            if multi_count > 1:
+                instruction_list.append(prev_instruction + multi_count + " times")
+                multi_count = 1
+            else:
+                instruction_list.append(prev_instruction)
+            prev_instruction = instruction
