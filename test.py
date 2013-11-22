@@ -52,14 +52,30 @@ def transform_multiples(text):
     instruction_list = []
     multi_count = 1
     prev_instruction = ""
+    i  = 0
 
-    for instruction in text:
-        if instruction == prev_instruction:
-            multi_count += 1
-        else:
-            if multi_count > 1:
-                instruction_list.append(prev_instruction + multi_count + " times")
-                multi_count = 1
+    while i < len(text):
+        l = text[i].split()
+        for instruction in l:
+            if instruction == prev_instruction:
+                multi_count += 1
             else:
-                instruction_list.append(prev_instruction)
+                if multi_count > 1:
+                    instruction_list.append(prev_instruction + " " + str(multi_count) + " times")
+                    multi_count = 1
+                else:
+                    if prev_instruction == "":
+                        pass
+                    else:
+                        instruction_list.append(prev_instruction)
             prev_instruction = instruction
+
+        if multi_count > 1:
+            instruction_list.append(prev_instruction + " " + str(multi_count) + " times")
+        else:
+            instruction_list.append(prev_instruction)
+        text[i] = (", ").join(instruction_list)
+        instruction_list = []
+        multi_count = 1
+        prev_instruction = ""
+        i += 1
