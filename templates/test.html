@@ -1,13 +1,21 @@
-<html>
-<head>
-    <title></title>
-</head>
-<body>
 
-    <video autoplay></video> <canvas id="canvas" width="640" height="500"></canvas> 
+{% extends 'base.html' %}
 
-    <form><input type="button" id="snapshot" value="snapshot"/></form> 
-    <form><input type="button" id="send" value="send"/></form>
+{%block body%}
+    <div id="video">
+        <video autoplay></video> <canvas id="canvas" width="640" height="500"></canvas> 
+        <form><input type="button" id="snapshot" value="snapshot"/></form>
+    </div>
+
+    <div id="form">
+        Please select the chart type:<br />
+        <form>
+            <input type="radio" name="wsrows" value="even" checked="checked">Work even on wrong-side rows</input><br />
+            <input type="radio" name="wsrows" value="patterned">Wrong-side rows are patterned</input><br />
+            <input type="button" id="send" value="send"/>
+        </form>
+    </div>
+
 
     <script src="http://code.jquery.com/jquery-2.0.3.js"></script>
     <script type="text/javascript">
@@ -46,7 +54,7 @@
         ctx.drawImage(video,0,0, 640, 500);
         // var img = document.createElement("img");
         img.src = canvas.toDataURL("image/png");
-        document.body.appendChild(img);
+        // document.body.appendChild(img);
     }) 
 
 
@@ -55,13 +63,17 @@
         var fd = new FormData();
         fd.append("imageNameHere", file);
         
-        $.post('/imgtest', {"img": file}, function(response){
-            console.log("Yay!");
+        var buttonId = $("input[name=wsrows]:checked").val();
+
+        var spinner = 
+        
+        $.post('/imgtest', {"img": file, "buttonId": buttonId}, function(response){
             console.log(response);
+            console.log(buttonId)
+            // get rid of spinner with server response returned
         })
     })
 
     </script>
 
-</body>
-</html>
+{%endblock%}

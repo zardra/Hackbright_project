@@ -1,0 +1,18 @@
+body {
+    background: url("../img/lyonnette.png");
+    font-family: 'Poiret One', cursive;
+}
+
+#image, #directions {
+    width: 850px;
+    margin: auto;
+}
+
+#directions {
+    background: rgba(255, 255, 255, .5);
+    padding: 10px;
+}
+
+#image {
+    text-align: center;
+}

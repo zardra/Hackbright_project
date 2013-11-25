@@ -1,5 +1,5 @@
 from flask import Flask, render_template, redirect, request, g, session, url_for, flash
-from model import User, Post
+from model import User, Image
 from flask.ext.login import LoginManager, login_required, login_user, current_user
 from flaskext.markdown import Markdown
 import config
@@ -28,10 +28,17 @@ def index():
     # posts = Post.query.all()
     return render_template("test.html")
 
+@app.route("/allusers")
+def allusers():
+    users = User.query.all()
+    # list all the users
+
+    return render_template("users.html", users=users)
 
 @app.route("/imgtest", methods=["POST"])
 def imgtest():
     imgData = request.form.get("img")
+    buttonId = request.form.get("buttonId")
     #print imgData
     png_file = open("chart_img.png", "wb")
     png_file.write(imgData[22:].decode("base64"))
