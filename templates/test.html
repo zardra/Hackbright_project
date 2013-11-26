@@ -11,7 +11,7 @@
         <form>
             <input type="radio" name="wsrows" value="even" checked="checked">Work even on wrong-side rows</input><br />
             <input type="radio" name="wsrows" value="patterned">Wrong-side rows are patterned</input><br />
-            <input type="button" id="send" value="send"/>
+            <input style="float: left;" type="button" id="send" value="send"/><div style="float: left" id="loading"><img src="/static/img/ajax-loader.gif" /></div>
         </form>
     </div>
 
@@ -64,12 +64,13 @@
         
         var buttonId = $("input[name=wsrows]:checked").val();
 
-        var spinner = 
+        $("#loading").html("<img src='/static/img/ajax-loader.gif' />");
         
         $.post('/imgtest', {"img": file, "buttonId": buttonId}, function(response){
             console.log(response);
             console.log(buttonId)
             // get rid of spinner with server response returned
+            $("#loading").html("");
         })
     })
 

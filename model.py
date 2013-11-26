@@ -18,6 +18,7 @@ session = scoped_session(sessionmaker(bind=engine,
 Base = declarative_base()
 Base.query = session.query_property()
 
+
 class User(Base, UserMixin):
     __tablename__ = "users" 
     id = Column(Integer, primary_key=True)
@@ -38,13 +39,15 @@ class User(Base, UserMixin):
 class Image(Base):
     __tablename__="images"
     id = Column(Integer, primary_key=True)
-    filename = Column(String(64), nullable=False)
-    directions = Column(String(), nullable=False)
+    directions = Column(String())
     user_id = Column(Integer, ForeignKey("users.id"))
 
-
+    def filename(self):
+        filename = str(self.id) + ".png"
+        return filename
 
 def create_tables():
+    Base.metadata.drop_all(engine)
     Base.metadata.create_all(engine)
     u = User(email="test@test.com", username="zardra")
     u.set_password("unicorn")

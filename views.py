@@ -44,8 +44,15 @@ def allimage():
 def imgtest():
     imgData = request.form.get("img")
     buttonId = request.form.get("buttonId")
-    #print imgData
-    png_file = open("chart_img.png", "wb")
+    
+    image = Image()
+    model.session.add(image)
+    model.session.commit()
+    model.session.refresh(image)
+
+    imgfilename = image.filename()
+    filepath = "./static/uploads/" + imgfilename
+    png_file = open(filepath, "wb")
     png_file.write(imgData[22:].decode("base64"))
     png_file.close()
     return "Success"
@@ -86,9 +93,8 @@ def make_account():
     email = request.form.get("email")
     password = request.form.get("password")
     print username, email, password
-    new_user = User(username=username)
+    new_user = User(username=username, email=email)
     new_user.set_password(password=password)
-    new_user.email(email=email)
 
     model.session.add(new_user)
     model.session.commit()
