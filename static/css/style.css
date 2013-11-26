@@ -16,3 +16,25 @@ body {
 #image {
     text-align: center;
 }
+
+form.signin {
+    width: 330px;
+    margin:50px auto;
+}
+form.signin input.form-control {
+    margin-bottom: 5px;
+}
+form.signin input.btn {
+    margin-top: 15px;
+}
+
+h1.title {
+    margin: 50px auto auto 340px;
+
+}
+
+#dimage {
+    height: 300px;
+    width: auto;
+    margin: 20px;
+}

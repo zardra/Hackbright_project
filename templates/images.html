@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+
+{% block body %}
+{% for image in images %}
+<table>
+    <tr><td>{{image.filename}}</td> <td><img id="dimage" src="/static/img/{{image.filename}}" /></td></tr>
+</table>
+{% endfor %}
+{% endblock %}

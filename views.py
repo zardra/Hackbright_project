@@ -30,10 +30,15 @@ def index():
 
 @app.route("/allusers")
 def allusers():
-    users = User.query.all()
     # list all the users
-
+    users = User.query.all()
     return render_template("users.html", users=users)
+
+@app.route("/allimages")
+def allimage():
+    # list all the users
+    images = Image.query.all()
+    return render_template("images.html", images=images)
 
 @app.route("/imgtest", methods=["POST"])
 def imgtest():
@@ -70,6 +75,25 @@ def create_post():
     model.session.refresh(post)
 
     return redirect(url_for("view_post", id=post.id))
+
+@app.route("/register")
+def register():
+    return render_template("register.html")
+
+@app.route("/register", methods=["POST"])
+def make_account():
+    username = request.form.get("username")
+    email = request.form.get("email")
+    password = request.form.get("password")
+    print username, email, password
+    new_user = User(username=username)
+    new_user.set_password(password=password)
+    new_user.email(email=email)
+
+    model.session.add(new_user)
+    model.session.commit()
+    model.session.refresh(new_user)
+    return redirect(url_for("index"))
 
 @app.route("/login")
 def login():

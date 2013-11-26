@@ -1,8 +1,10 @@
 {% extends "base.html" %}
+
 {% block body %}
-<form method="post">
-    <input type="text" name="email" placeholder="Email"><br>
+<h1 class="title">Knit Vision</h1>
+<form class="signin" method="post">
+    <input type="text" name="username" placeholder="Username"><br>
     <input type="password" name="password" placeholder="Password"><br>
-    <input type="submit">
+    <input type="submit">&nbsp;&nbsp;&nbsp;<a href="/register">Need to Register?</a>
 </form>
 {% endblock %}
