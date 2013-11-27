@@ -55,7 +55,7 @@ def imgtest():
     png_file = open(filepath, "wb")
     png_file.write(imgData[22:].decode("base64"))
     png_file.close()
-    return "Success"
+    return redirect(url_for("imgtest"))
 
 @app.route("/post/<int:id>")
 def view_post(id):
@@ -112,10 +112,10 @@ def authenticate():
         flash("Incorrect username or password") 
         return render_template("login.html")
 
-    email = form.email.data
+    username = form.username.data
     password = form.password.data
 
-    user = User.query.filter_by(email=email).first()
+    user = User.query.filter_by(username=username).first()
 
     if not user or not user.authenticate(password):
         flash("Incorrect username or password") 
