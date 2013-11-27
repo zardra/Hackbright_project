@@ -1,6 +1,6 @@
 from flask import Flask, render_template, redirect, request, g, session, url_for, flash
 from model import User, Image
-from flask.ext.login import LoginManager, login_required, login_user, current_user
+from flask.ext.login import LoginManager, login_required, login_user, current_user, logout_user
 from flaskext.markdown import Markdown
 import config
 import forms
@@ -23,7 +23,12 @@ def load_user(user_id):
 # Adding markdown capability to the app
 Markdown(app)
 
+@app.before_request
+def before_request():
+    g.user = current_user
+
 @app.route("/")
+@login_required
 def index():
     # posts = Post.query.all()
     return render_template("test.html")
@@ -35,17 +40,23 @@ def allusers():
     return render_template("users.html", users=users)
 
 @app.route("/allimages")
+@login_required
 def allimage():
-    # list all the users
-    images = Image.query.all()
+    user = g.user
+    user_id = user.id
+    # list all the user's images
+    images = Image.query.filter_by(user_id= user_id)
     return render_template("images.html", images=images)
 
 @app.route("/imgtest", methods=["POST"])
 def imgtest():
     imgData = request.form.get("img")
     buttonId = request.form.get("buttonId")
-    
-    image = Image()
+
+    user = g.user
+    user_id = user.id
+
+    image = Image(user_id=user_id)
     model.session.add(image)
     model.session.commit()
     model.session.refresh(image)
@@ -55,7 +66,7 @@ def imgtest():
     png_file = open(filepath, "wb")
     png_file.write(imgData[22:].decode("base64"))
     png_file.close()
-    return redirect(url_for("imgtest"))
+    return "success"
 
 @app.route("/post/<int:id>")
 def view_post(id):
@@ -105,6 +116,11 @@ def make_account():
 def login():
     return render_template("login.html")
 
+@app.route("/logout")
+def logout():
+    logout_user()
+    return redirect(url_for("login"))
+
 @app.route("/login", methods=["POST"])
 def authenticate():
     form = forms.LoginForm(request.form)
@@ -122,6 +138,7 @@ def authenticate():
         return render_template("login.html")
 
     login_user(user)
+
     return redirect(request.args.get("next", url_for("index")))
 
 
