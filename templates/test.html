@@ -1,17 +1,30 @@
 {% extends 'base.html' %}
 
 {%block body%}
+<!--     <div id="greeting">
+        Hello, {{g.user.username}}!
+    </div> -->
+    <div id="intro">
+        Instructions:
+        <ol>
+        <li>Take a photo of your chart with your computer's camera by clicking the "Take Snapshot" button. Verify that it is not blurry.</li>
+        <li>Select the radio button indicating if your chart has wrong-side rows that are knit even or if they are patterned.</li>
+        <li>Click "Process" to get written directions.</li>
+        </ol>
+    </div>
+
     <div id="video">
-        <video autoplay></video> <canvas id="canvas" width="640" height="500"></canvas> 
-        <form><input type="button" id="snapshot" value="snapshot"/></form>
+        <p><video autoplay></video></p>
+        <form><input type="button" id="snapshot" value="Take Snapshot"/></form>
+        <canvas id="canvas" width="640" height="500"></canvas> 
     </div>
 
     <div id="form">
         Please select the chart type:<br />
         <form>
-            <input type="radio" name="wsrows" value="even" checked="checked">Work even on wrong-side rows</input><br />
-            <input type="radio" name="wsrows" value="patterned">Wrong-side rows are patterned</input><br />
-            <input style="float: left;" type="button" id="send" value="send"/><div style="float: left" id="loading"></div>
+            <input type="radio" name="wsrows" value="even" checked="checked"> Work even on wrong-side rows</input><br />
+            <input type="radio" name="wsrows" value="patterned"> Wrong-side rows are patterned</input><br /><br />
+            <input style="float: left;" type="button" id="send" value="Process"/><div style="float: left" id="loading"></div>
         </form>
     </div>
 

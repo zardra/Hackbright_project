@@ -66,7 +66,7 @@ def imgtest():
     png_file = open(filepath, "wb")
     png_file.write(imgData[22:].decode("base64"))
     png_file.close()
-    return "success"
+    return "Success"
 
 @app.route("/post/<int:id>")
 def view_post(id):

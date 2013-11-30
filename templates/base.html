@@ -3,23 +3,24 @@
         <title>My App</title>
         <link rel="stylesheet" href="/static/css/bootstrap.min.css">
         <link rel="stylesheet" type="text/css" href="../static/css/style.css">
-        <link href='http://fonts.googleapis.com/css?family=Poiret+One' rel='stylesheet' type='text/css'>
+        <link href='http://fonts.googleapis.com/css?family=Junge' rel='stylesheet' type='text/css'>
         <script type="text/javascript" src="/static/js/jquery-2.0.3.min.js"></script>
         <script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
         <script type="text/javascript" src="/static/js/bootstrap.js"></script>
     </head>
     <body>
-<!--         <div class="navbar">
+        <div class="navbar">
             <div class="navbar-inner">
                 <div class="container">
                     <ul class="nav">
-                        <li><a href="{{url_for("index")}}">A Blog</a></li>
-                        <li><a href="{{url_for("new_post")}}">New post</a></li>
-                        <li><a href="{{url_for("login")}}">Login</a></li>
+                        <li><a href="{{url_for("login")}}">Login</a></li>                        
+                        <li><a href="{{url_for("index")}}">New Chart</a></li>
+                        <li><a href="{{url_for("allimage")}}">My Charts</a></li>
+                        <li><a href="{{url_for("logout")}}">Logout</a></li>
                     </ul>
                 </div>
             </div>
-        </div> -->
+        </div>
         <div class="container">
             {%block body%}
             {%endblock%}
