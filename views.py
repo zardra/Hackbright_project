@@ -31,7 +31,7 @@ def before_request():
 @login_required
 def index():
     # posts = Post.query.all()
-    return render_template("test.html")
+    return render_template("index.html")
 
 @app.route("/allusers")
 def allusers():
@@ -68,31 +68,31 @@ def imgtest():
     png_file.close()
     return "Success"
 
-@app.route("/post/<int:id>")
-def view_post(id):
-    post = Post.query.get(id)
-    return render_template("post.html", post=post)
+# @app.route("/post/<int:id>")
+# def view_post(id):
+#     post = Post.query.get(id)
+#     return render_template("post.html", post=post)
 
-@app.route("/post/new")
-@login_required
-def new_post():
-    return render_template("new_post.html")
+# @app.route("/post/new")
+# @login_required
+# def new_post():
+#     return render_template("new_post.html")
 
-@app.route("/post/new", methods=["POST"])
-@login_required
-def create_post():
-    form = forms.NewPostForm(request.form)
-    if not form.validate():
-        flash("Error, all fields are required")
-        return render_template("new_post.html")
+# @app.route("/post/new", methods=["POST"])
+# @login_required
+# def create_post():
+#     form = forms.NewPostForm(request.form)
+#     if not form.validate():
+#         flash("Error, all fields are required")
+#         return render_template("new_post.html")
 
-    post = Post(title=form.title.data, body=form.body.data)
-    current_user.posts.append(post) 
+#     post = Post(title=form.title.data, body=form.body.data)
+#     current_user.posts.append(post) 
     
-    model.session.commit()
-    model.session.refresh(post)
+#     model.session.commit()
+#     model.session.refresh(post)
 
-    return redirect(url_for("view_post", id=post.id))
+#     return redirect(url_for("view_post", id=post.id))
 
 @app.route("/register")
 def register():
@@ -112,14 +112,14 @@ def make_account():
     model.session.refresh(new_user)
     return redirect(url_for("index"))
 
-@app.route("/login")
-def login():
-    return render_template("login.html")
-
 @app.route("/logout")
 def logout():
     logout_user()
     return redirect(url_for("login"))
+
+@app.route("/login")
+def login():
+    return render_template("login.html")
 
 @app.route("/login", methods=["POST"])
 def authenticate():

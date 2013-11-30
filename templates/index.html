@@ -1,14 +1,92 @@
 {% extends 'base.html' %}
-{% block body %}
-{% for post in posts %}
-<div class="post">
-    <h2><a href="{{url_for("view_post", id=post.id)}}">{{post.title}}</a></h2>
-    <p>
-        {{post.body | markdown}}
-    </p>
-</div>
-{% else %}
-No posts here!
-<a href="{{url_for("new_post")}}">New post</a>
-{% endfor %}
-{% endblock %}
+
+{%block body%}
+<!--     <div id="greeting">
+        Hello, {{g.user.username}}!
+    </div> -->
+    <div id="intro">
+        Instructions:
+        <ol>
+        <li>Take a photo of your chart with your computer's camera by clicking the "Take Snapshot" button. Verify that it is not blurry.</li>
+        <li>Select the radio button indicating if your chart has wrong-side rows that are knit even or if they are patterned.</li>
+        <li>Click "Process" to get written directions.</li>
+        </ol>
+    </div>
+
+    <div id="video">
+        <p><video autoplay></video></p>
+        <form><input type="button" id="snapshot" value="Take Snapshot"/></form>
+        <canvas id="canvas" width="640" height="500"></canvas> 
+    </div>
+
+    <div id="form">
+        Please select the chart type:<br />
+        <form>
+            <input type="radio" name="wsrows" value="even" checked="checked"> Work even on wrong-side rows</input><br />
+            <input type="radio" name="wsrows" value="patterned"> Wrong-side rows are patterned</input><br /><br />
+            <input style="float: left;" type="button" id="send" value="Process"/><div style="float: left" id="loading"></div>
+        </form>
+    </div>
+
+
+    <script src="http://code.jquery.com/jquery-2.0.3.js"></script>
+    <script type="text/javascript">
+
+    function hasGetUserMedia() {
+      return !!(navigator.getUserMedia || navigator.webkitGetUserMedia ||
+                navigator.mozGetUserMedia || navigator.msGetUserMedia);
+    }
+
+    if (hasGetUserMedia()) {
+        var errorCallback = function(e) {
+            console.log('Reeeejected!', e);
+          };
+
+          // Not showing vendor prefixes.
+          navigator.webkitGetUserMedia({video: true}, function(localMediaStream) {
+            var video = document.querySelector('video');
+            video.src = window.URL.createObjectURL(localMediaStream);
+
+            // Note: onloadedmetadata doesn't fire in Chrome when using it with getUserMedia.
+            // See crbug.com/110938.
+            video.onloadedmetadata = function(e) {
+              // Ready to go. Do some stuff.
+            };
+          }, errorCallback);
+    } else {
+      alert("The application is unable to access your camera!");
+    }
+    
+    var img = document.createElement("img");
+
+    $("#snapshot").click(function() { 
+        var video = document.querySelector("video"); 
+        var canvas = document.getElementById("canvas"); 
+        var ctx = canvas.getContext("2d"); 
+        ctx.drawImage(video,0,0, 640, 500);
+        // var img = document.createElement("img");
+        img.src = canvas.toDataURL("image/png");
+        // document.body.appendChild(img);
+    }) 
+
+
+    $("#send").click(function() {
+        var file = img.src;
+        var fd = new FormData();
+        fd.append("imageNameHere", file);
+        
+        var buttonId = $("input[name=wsrows]:checked").val();
+
+        $("#loading").html("<img src='/static/img/ajax-loader.gif' />");
+        
+        $.post('/imgtest', {"img": file, "buttonId": buttonId}, function(response){
+            console.log(response);
+            console.log(buttonId)
+            // get rid of spinner with server response returned
+            $("#loading").html("");
+        })
+    })
+
+    </script>
+
+{%endblock%}
