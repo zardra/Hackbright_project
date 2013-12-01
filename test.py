@@ -1,3 +1,29 @@
+import random
+
+def create_random_knit_file():
+    rows = []
+    i = 0
+    x = 0
+    new_row = ""
+
+    while x < 5:
+        while i < 20:
+            new_stitch = str(random.randint(1, 45)) + " "
+            new_row += new_stitch
+            i += 1
+        new_row = new_row[:-1]
+        rows.append(new_row)
+        i = 0
+        new_row = ""
+        x += 1
+
+    chart_rows = "\n".join(rows)
+    knit_file = open("chart_file.txt", "wb")
+    knit_file.write(chart_rows)
+    knit_file.close()
+
+    return knit_file
+
 def reverse_even_rows(text): 
     """if chart contains both patterned right-side (RS) and wrong-side (WS)
     rows, this will reverse the direction of the WS rows so they read in

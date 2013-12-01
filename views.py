@@ -49,20 +49,26 @@ def allimage():
     return render_template("images.html", images=images)
 
 @app.route("/imgtest", methods=["POST"])
+@login_required
 def imgtest():
+    #pass the canvas image & the radio button selection
     imgData = request.form.get("img")
     buttonId = request.form.get("buttonId")
 
     user = g.user
     user_id = user.id
 
+    #create a new Image instance in the db
     image = Image(user_id=user_id)
     model.session.add(image)
     model.session.commit()
     model.session.refresh(image)
 
+    #set the image's to a unique filename based on its db id
     imgfilename = image.filename()
     filepath = "./static/uploads/" + imgfilename
+
+    #decode the canvas image into a png file
     png_file = open(filepath, "wb")
     png_file.write(imgData[22:].decode("base64"))
     png_file.close()
@@ -103,7 +109,6 @@ def make_account():
     username = request.form.get("username")
     email = request.form.get("email")
     password = request.form.get("password")
-    print username, email, password
     new_user = User(username=username, email=email)
     new_user.set_password(password=password)
 
