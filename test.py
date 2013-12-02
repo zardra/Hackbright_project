@@ -101,8 +101,8 @@ f.close()
 text.reverse()
 
 #If the chart contains patterned WS rows: 
-if buttonId == "patterned":
-    reverse_even_rows(text)
+# if buttonId == "patterned":
+#     reverse_even_rows(text)
 
 #Change the number to knitting instructions
 change_to_symbols(text)

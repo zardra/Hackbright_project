@@ -5,6 +5,7 @@ from flaskext.markdown import Markdown
 import config
 import forms
 import model
+import test
 
 app = Flask(__name__)
 app.config.from_object(config)
@@ -48,6 +49,13 @@ def allimage():
     images = Image.query.filter_by(user_id= user_id)
     return render_template("images.html", images=images)
 
+@app.route("/imgtest")
+@login_required
+def go_to_images():
+    # example = test.create_random_knit_file()
+    return render_template("imgtest.html")
+
+
 @app.route("/imgtest", methods=["POST"])
 @login_required
 def imgtest():
@@ -72,33 +80,8 @@ def imgtest():
     png_file = open(filepath, "wb")
     png_file.write(imgData[22:].decode("base64"))
     png_file.close()
-    return "Success"
+    return filepath
 
-# @app.route("/post/<int:id>")
-# def view_post(id):
-#     post = Post.query.get(id)
-#     return render_template("post.html", post=post)
-
-# @app.route("/post/new")
-# @login_required
-# def new_post():
-#     return render_template("new_post.html")
-
-# @app.route("/post/new", methods=["POST"])
-# @login_required
-# def create_post():
-#     form = forms.NewPostForm(request.form)
-#     if not form.validate():
-#         flash("Error, all fields are required")
-#         return render_template("new_post.html")
-
-#     post = Post(title=form.title.data, body=form.body.data)
-#     current_user.posts.append(post) 
-    
-#     model.session.commit()
-#     model.session.refresh(post)
-
-#     return redirect(url_for("view_post", id=post.id))
 
 @app.route("/register")
 def register():
