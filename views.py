@@ -52,36 +52,53 @@ def allimage():
 @app.route("/imgtest")
 @login_required
 def go_to_images():
-    filepath = request.args.get("filepath")
-    directions = test.main("patterned")
+    filename = request.args.get("filename")
+    filepath = "/static/uploads/" + filename
+    
+    # get id by removing ".png" from the filename
+    file_id = filename.split(".")
+    db_id = file_id[0]
+
+    # get image from db based on id
+    image = Image.query.get(db_id)
+
+    # get the ws_rows value and send it to the test functions
+    ws_rows = image.ws_rows
+    directions = test.main(ws_rows)
+
+    # save the directions to the database entry for the image
+    image.directions = str(directions)
+    model.session.commit()
+
     return render_template("imgtest.html", filepath=filepath, directions=directions)
 
 
 @app.route("/imgtest", methods=["POST"])
 @login_required
 def imgtest():
-    #pass the canvas image & the radio button selection
-    imgData = request.form.get("img")
-    buttonId = request.form.get("buttonId") #TODO: save value on image model, add title field as well!!!
+    # pass the canvas image & the radio button selection
+    img_data = request.form.get("img")
+    button_val = request.form.get("buttonVal") 
+    title = request.form.get("title")
 
     user = g.user
     user_id = user.id
 
-    #create a new Image instance in the db
-    image = Image(user_id=user_id)
+    # create a new Image instance in the db
+    image = Image(user_id=user_id, ws_rows=button_val, title=title)
     model.session.add(image)
     model.session.commit()
     model.session.refresh(image)
 
-    #set the image's to a unique filename based on its db id
-    imgfilename = image.filename()
-    filepath = "./static/uploads/" + imgfilename
+    # set the image's to a unique filename based on its db id
+    img_filename = image.filename()
+    filepath = "./static/uploads/" + img_filename
 
-    #decode the canvas image into a png file
+    # decode the canvas image into a png file
     png_file = open(filepath, "wb")
-    png_file.write(imgData[22:].decode("base64"))
+    png_file.write(img_data[22:].decode("base64"))
     png_file.close()
-    return filepath
+    return img_filename
 
 
 @app.route("/register")

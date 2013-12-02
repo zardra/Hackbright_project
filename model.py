@@ -39,6 +39,8 @@ class User(Base, UserMixin):
 class Image(Base):
     __tablename__="images"
     id = Column(Integer, primary_key=True)
+    title = Column(String(150))
+    ws_rows = Column(String(15))
     directions = Column(String())
     user_id = Column(Integer, ForeignKey("users.id"))
 

@@ -24,6 +24,8 @@
         <form>
             <input type="radio" name="wsrows" value="even" checked="checked"> Work even on wrong-side rows</input><br />
             <input type="radio" name="wsrows" value="patterned"> Wrong-side rows are patterned</input><br /><br />
+            Please enter a title for your chart:<br />
+            <input type="text" name="title" placeholder="Title of chart"><br />
             <input style="float: left;" type="button" id="send" value="Process"/><div style="float: left" id="loading"></div>
         </form>
     </div>
@@ -67,7 +69,7 @@
         // var img = document.createElement("img");
         img.src = canvas.toDataURL("image/png");
         // document.body.appendChild(img);
-        
+
     }) 
 
 
@@ -77,17 +79,19 @@
         fd.append("imageNameHere", file);
         
         //check which radio button is selected
-        var buttonId = $("input[name=wsrows]:checked").val();
+        var buttonVal = $("input[name=wsrows]:checked").val();
+        var title = $("input:text").val()
 
         //load spinner on button click
         $("#loading").html("<img src='/static/img/ajax-loader.gif' />");
         
-        $.post('/imgtest', {"img": file, "buttonId": buttonId}, function(response){
+        $.post('/imgtest', {"img": file, "buttonVal": buttonVal, "title": title}, function(response){
             console.log(response);
-            console.log(buttonId)
+            console.log(buttonVal)
+            console.log(title)
             // get rid of spinner with server response returned
             $("#loading").html("");
-            window.location.replace("/imgtest?filepath=" + response);
+            window.location.replace("/imgtest?filename=" + response);
 
         })
     })
