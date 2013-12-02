@@ -3,14 +3,13 @@
 {%block body%}
 
     <div id="image">
-        <img src={{filepath}} />
+        <img src="{{filepath}}" />
     </div>
 
     <div id="directions">
-        Row 1: knit 18 times<br />
-        Row 2: knit 18 times<br />
-        Row 3: k2tog 3 times, yo, knit, yo, knit, yo, knit, yo, knit, yo, knit, yo, knit, k2tog 3 times<br />
-        Row 4: purl 18 times
+        {%for direction in directions%}
+            {{direction}}
+        {%endfor%}
     </div>
 
 

@@ -52,8 +52,9 @@ def allimage():
 @app.route("/imgtest")
 @login_required
 def go_to_images():
-    # example = test.create_random_knit_file()
-    return render_template("imgtest.html")
+    filepath = request.args.get("filepath")
+    directions = test.main("patterned")
+    return render_template("imgtest.html", filepath=filepath, directions=directions)
 
 
 @app.route("/imgtest", methods=["POST"])
@@ -61,7 +62,7 @@ def go_to_images():
 def imgtest():
     #pass the canvas image & the radio button selection
     imgData = request.form.get("img")
-    buttonId = request.form.get("buttonId")
+    buttonId = request.form.get("buttonId") #TODO: save value on image model, add title field as well!!!
 
     user = g.user
     user_id = user.id

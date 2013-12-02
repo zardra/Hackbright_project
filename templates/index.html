@@ -67,6 +67,7 @@
         // var img = document.createElement("img");
         img.src = canvas.toDataURL("image/png");
         // document.body.appendChild(img);
+        
     }) 
 
 
@@ -86,7 +87,7 @@
             console.log(buttonId)
             // get rid of spinner with server response returned
             $("#loading").html("");
-            window.location.replace(response);
+            window.location.replace("/imgtest?filepath=" + response);
 
         })
     })
