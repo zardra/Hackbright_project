@@ -91,24 +91,27 @@ def transform_multiples(text):
 
     return text
 
+# dictionary assigning values to knitting instructions
 symbols = {1: "knit", 2: "purl", 3: "ktbl", 4: "ptbl", 5: "bind off", 6: "yo", 7: "M1", 8: "make eyelet", 9: "right-leaning increase", 10: "left-leaning increase", 11: "double increase", 12: "triple increase", 13: "triple purl increase", 14: "increase 1 st", 15: "increase 2 sts", 16: "increase 4 sts", 17: "increase 5 sts", 18: "yo 1 time", 19: "yo 2 times", 20: "yo 3 times", 21: "yo 4 times", 22: "yo 5 times", 23: "ssk", 24: "k2tog", 25: "double decrease", 26: "k3tog", 27: "p2tog tbl", 28: "p2tog", 29: "double purl decrease", 30: "p3tog", 31: "decrease 1 st", 32: "decrease 2 sts", 33: "decrease 3 sts", 34: "decrease 4 sts", 35: "decrease 5 sts", 36: "knit into row below", 37: "purl into row below", 38: "slip st as if to knit", 39: "slip st as if to purl", 40: "slip st with yarn in front", 41: "no stitch", 42: "bobble", 43: "selvage st", 44: "short knit", 45: "short purl"}
 
-def main(buttonId):
+def main(button_val):
     f = open("static/text/oldshale.txt")
     text = f.readlines()
     f.close()
 
-    #Reverse to "read" from botton of knitting chart
+    # reverse to "read" from botton of knitting chart
     text.reverse()
+    reversed_text = text
 
-    #If the chart contains patterned WS rows: 
-    if buttonId == "patterned":
-        reverse_even_rows(text)
+    # if the chart contains patterned WS rows: 
+    if button_val == "patterned":
+        reversed_rows = reverse_even_rows(reversed_text)
+        eng_ins = change_to_symbols(reversed_rows)
+    else:
+        # change the number to knitting instructions
+        eng_ins = change_to_symbols(reversed_text)
 
-    #Change the number to knitting instructions
-    eng_ins = change_to_symbols(text)
-
-    #Consoldiate multiple instructions
+    # consoldiate multiple instructions
     compressed_ins = transform_multiples(eng_ins)
 
     return compressed_ins

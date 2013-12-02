@@ -66,10 +66,7 @@
         var canvas = document.getElementById("canvas"); 
         var ctx = canvas.getContext("2d"); 
         ctx.drawImage(video,0,0, 640, 500);
-        // var img = document.createElement("img");
         img.src = canvas.toDataURL("image/png");
-        // document.body.appendChild(img);
-
     }) 
 
 
@@ -86,11 +83,9 @@
         $("#loading").html("<img src='/static/img/ajax-loader.gif' />");
         
         $.post('/imgtest', {"img": file, "buttonVal": buttonVal, "title": title}, function(response){
-            console.log(response);
-            console.log(buttonVal)
-            console.log(title)
             // get rid of spinner with server response returned
             $("#loading").html("");
+            // redirect page to imgtest for the image
             window.location.replace("/imgtest?filename=" + response);
 
         })
