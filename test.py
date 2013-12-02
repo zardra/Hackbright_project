@@ -1,6 +1,7 @@
 import random
 
 def create_random_knit_file():
+    """Creates a text file representing an example of an expected OCR output file. Five lines of 20 randomly selected sttiches for demo purposes"""
     rows = []
     i = 0
     x = 0
@@ -18,16 +19,12 @@ def create_random_knit_file():
         x += 1
 
     chart_rows = "\n".join(rows)
-    knit_file = open("chart_file.txt", "wb")
+    knit_file = open("/static/text/chart_file.txt", "wb")
     knit_file.write(chart_rows)
     knit_file.close()
 
-    return knit_file
-
 def reverse_even_rows(text): 
-    """if chart contains both patterned right-side (RS) and wrong-side (WS)
-    rows, this will reverse the direction of the WS rows so they read in
-    the correct direction."""
+    """if chart contains both patterned right-side (RS) and wrong-side (WS) rows, this will reverse the direction of the WS rows so they read in the correct direction."""
 
     i = 0
     l = []
