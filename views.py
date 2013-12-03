@@ -5,7 +5,7 @@ from flaskext.markdown import Markdown
 import config
 import forms
 import model
-import test
+import transform
 
 app = Flask(__name__)
 app.config.from_object(config)
@@ -49,7 +49,7 @@ def allimage():
     images = Image.query.filter_by(user_id= user_id)
     return render_template("images.html", images=images)
 
-@app.route("/imgtest")
+@app.route("/directions")
 @login_required
 def go_to_images():
     filename = request.args.get("filename")
@@ -62,9 +62,9 @@ def go_to_images():
     # get image from db based on id
     image = Image.query.get(db_id)
 
-    # get the ws_rows value and send it to the test functions
+    # get the ws_rows value and send it to the transform functions
     if not image.directions:
-        directions = test.main(image.ws_rows)
+        directions = transform.main(image.ws_rows)
 
         # save the directions to the database entry for the image
         image.directions = str(directions)
@@ -72,12 +72,12 @@ def go_to_images():
     else:
         directions = eval(image.directions)
 
-    return render_template("imgtest.html", filepath=filepath, directions=directions)
+    return render_template("directions.html", filepath=filepath, directions=directions)
 
 
-@app.route("/imgtest", methods=["POST"])
+@app.route("/directions", methods=["POST"])
 @login_required
-def imgtest():
+def chart_directions():
     # pass the canvas image & the radio button selection
     img_data = request.form.get("img")
     button_val = request.form.get("buttonVal") 

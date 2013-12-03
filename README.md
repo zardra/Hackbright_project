@@ -4,7 +4,7 @@ Knitting charts are a visual representation of a knitting pattern, but many peop
 Project Summary
 ------------
 
-1. User takes photo of knitting chart with computer camera.
-2. Program runs image through OCR.
-3. Process converted imaged to interpret symbols into English directions.
-4. Generate usable written directions for the user.
+1. The user takes a photo of a knitting chart with their computer's camera.
+2. The program runs the image through an OCR engine.
+3. The program processes the converted image to interpret the OCR output into English directions.
+4. The program generates usable written directions for the user.

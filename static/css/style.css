@@ -8,29 +8,31 @@ body {
     margin: auto;
 }
 
-#directions {
-    background: rgba(255, 255, 255, .5);
+#table {
+    width: 700px;
+    margin: auto;
+}
+
+#directions, #table {
+    background: rgba(197, 197, 197, .5);
     padding: 10px;
 }
 
-#image {
+#image, #table {
     text-align: center;
 }
 
 form.signin {
     width: 330px;
     margin:50px auto;
+    background: rgba(197, 197, 197, .5);
+    padding: 10px;
 }
 form.signin input.form-control {
     margin-bottom: 5px;
 }
 form.signin input.btn {
     margin-top: 15px;
-}
-
-h1.title {
-    margin: 50px auto auto 340px;
-
 }
 
 #dimage {

@@ -2,7 +2,7 @@
 
 {% block body %}
 {% for image in images %}
-<table>
+<table id="table">
     <tr><td width="100">{{image.title}}</td> <td><a href="/imgtest?filename={{image.filename()}}"><img id="dimage" src="/static/uploads/{{image.filename()}}" /></a></td></tr>
 </table>
 {% endfor %}

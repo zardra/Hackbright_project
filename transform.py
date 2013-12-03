@@ -126,7 +126,7 @@ symbols = {1: "knit", 2: "purl", 3: "ktbl", 4: "ptbl", 5: "bind off", 6: "yo", 7
 
 def main(button_val):
     create_random_knit_file()
-    f = open("static/text/chart_file.txt")
+    f = open("static/text/oldshale.txt")
     text = f.readlines()
     f.close()
 

@@ -1,10 +1,7 @@
 {% extends 'base.html' %}
 
 {%block body%}
-<!--     <div id="greeting">
-        Hello, {{g.user.username}}!
-    </div> -->
-    <div id="intro">
+    <div id="directions">
         Instructions:
         <ol>
         <li>Take a photo of your chart with your computer's camera by clicking the "Take Snapshot" button. Verify that it is not blurry.</li>
@@ -12,23 +9,24 @@
         <li>Click "Process" to get written directions.</li>
         </ol>
     </div>
-
-    <div id="video">
+    <br />
+    <div id="image">
         <p><video autoplay></video></p>
         <form><input type="button" id="snapshot" value="Take Snapshot"/></form>
         <canvas id="canvas" width="640" height="500"></canvas> 
     </div>
-
-    <div id="form">
+    <br />
+    <div id="directions">
         Please select the chart type:<br />
         <form>
             <input type="radio" name="wsrows" value="even" checked="checked"> Work even on wrong-side rows</input><br />
             <input type="radio" name="wsrows" value="patterned"> Wrong-side rows are patterned</input><br /><br />
             Please enter a title for your chart:<br />
             <input type="text" name="title" placeholder="Title of chart"><br />
-            <input style="float: left;" type="button" id="send" value="Process"/><div style="float: left" id="loading"></div>
+            <input style="float: left;" type="button" id="send" value="Process"/><div style="float: left" id="loading"></div><br />
         </form>
     </div>
+    <br />
 
 
     <script src="http://code.jquery.com/jquery-2.0.3.js"></script>
@@ -82,11 +80,11 @@
         //load spinner on button click
         $("#loading").html("<img src='/static/img/ajax-loader.gif' />");
         
-        $.post('/imgtest', {"img": file, "buttonVal": buttonVal, "title": title}, function(response){
+        $.post('/directions', {"img": file, "buttonVal": buttonVal, "title": title}, function(response){
             // get rid of spinner with server response returned
             $("#loading").html("");
-            // redirect page to imgtest for the image
-            window.location.replace("/imgtest?filename=" + response);
+            // redirect page to directions for the image
+            window.location.replace("/directions?filename=" + response);
 
         })
     })
