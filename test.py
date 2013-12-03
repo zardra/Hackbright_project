@@ -100,7 +100,7 @@ def create_knit_even_rows(text):
     for row in text:
         instructions += "Row %d: %s" % (i, row)
         knit_even_rows.append(instructions)
-        instructions = "Row %d: Work row evenly" % (i+1)
+        instructions = "Row %d: work row evenly" % (i+1)
         knit_even_rows.append(instructions)
         instructions = ""
         i += 2
