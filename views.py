@@ -63,12 +63,14 @@ def go_to_images():
     image = Image.query.get(db_id)
 
     # get the ws_rows value and send it to the test functions
-    ws_rows = image.ws_rows
-    directions = test.main(ws_rows)
+    if not image.directions:
+        directions = test.main(image.ws_rows)
 
-    # save the directions to the database entry for the image
-    image.directions = str(directions)
-    model.session.commit()
+        # save the directions to the database entry for the image
+        image.directions = str(directions)
+        model.session.commit()
+    else:
+        directions = eval(image.directions)
 
     return render_template("imgtest.html", filepath=filepath, directions=directions)
 
