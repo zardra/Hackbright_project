@@ -29,34 +29,28 @@
     <br />
 
 
-    <script src="http://code.jquery.com/jquery-2.0.3.js"></script>
+    <!-- <script src="http://code.jquery.com/jquery-2.0.3.js"></script> -->
+    <script type="text/javascript" src="/static/js/jquery-2.0.3.min.js"></script>
     <script type="text/javascript">
 
-    function hasGetUserMedia() {
-      return !!(navigator.getUserMedia || navigator.webkitGetUserMedia ||
-                navigator.mozGetUserMedia || navigator.msGetUserMedia);
-    }
+    if(navigator.webkitGetUserMedia!=null) { 
+        var options = { 
+            video:true 
+        }; 
+         
+        //request webcam access 
+        navigator.webkitGetUserMedia(options, function(mediaStream) { 
+                //get the video tag 
+                var video = document.querySelector('video'); 
+                //turn the stream into a magic URL 
+                video.src = window.URL.createObjectURL(mediaStream); 
+            }, 
+            function(e) { 
+                alert("The application is unable to access your camera!"); 
+            } 
+        ); 
+    } 
 
-    if (hasGetUserMedia()) {
-        var errorCallback = function(e) {
-            console.log('Reeeejected!', e);
-          };
-
-          // Not showing vendor prefixes.
-          navigator.webkitGetUserMedia({video: true}, function(localMediaStream) {
-            var video = document.querySelector('video');
-            video.src = window.URL.createObjectURL(localMediaStream);
-
-            // Note: onloadedmetadata doesn't fire in Chrome when using it with getUserMedia.
-            // See crbug.com/110938.
-            video.onloadedmetadata = function(e) {
-              // Ready to go. Do some stuff.
-            };
-          }, errorCallback);
-    } else {
-      alert("The application is unable to access your camera!");
-    }
-    
     var img = document.createElement("img");
 
     $("#snapshot").click(function() { 

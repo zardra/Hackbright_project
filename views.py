@@ -31,7 +31,6 @@ def before_request():
 @app.route("/")
 @login_required
 def index():
-    # posts = Post.query.all()
     return render_template("index.html")
 
 @app.route("/allusers")
@@ -62,23 +61,24 @@ def go_to_images():
     # get image from db based on id
     image = Image.query.get(db_id)
 
-    # get the ws_rows value and send it to the transform functions
+    # check if the image already has directions associated with it
     if not image.directions:
+        # if not, get the ws_rows value and send it to the transform functions
         directions = transform.main(image.ws_rows)
 
-        # save the directions to the database entry for the image
+        # save the directions as a string to the database entry for the image
         image.directions = str(directions)
         model.session.commit()
     else:
+        #otherwise, retrieve the directions from the database and change it back to a list for displaying
         directions = eval(image.directions)
-
     return render_template("directions.html", filepath=filepath, directions=directions)
 
 
 @app.route("/directions", methods=["POST"])
 @login_required
 def chart_directions():
-    # pass the canvas image & the radio button selection
+    # request the canvas image, the radio button selection, and the title text
     img_data = request.form.get("img")
     button_val = request.form.get("buttonVal") 
     title = request.form.get("title")
@@ -92,7 +92,7 @@ def chart_directions():
     model.session.commit()
     model.session.refresh(image)
 
-    # set the image's to a unique filename based on its db id
+    # set the image to a unique filename based on its database id
     img_filename = image.filename()
     filepath = "./static/uploads/" + img_filename
 
@@ -146,7 +146,6 @@ def authenticate():
         return render_template("login.html")
 
     login_user(user)
-
     return redirect(request.args.get("next", url_for("index")))
 
 

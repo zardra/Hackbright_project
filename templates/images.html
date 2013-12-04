@@ -3,7 +3,7 @@
 {% block body %}
 {% for image in images %}
 <table id="table">
-    <tr><td width="100">{{image.title}}</td> <td><a href="/imgtest?filename={{image.filename()}}"><img id="dimage" src="/static/uploads/{{image.filename()}}" /></a></td></tr>
+    <tr><td width="100">{{image.title}}</td> <td><a href="/directions?filename={{image.filename()}}"><img id="dimage" src="/static/uploads/{{image.filename()}}" /></a></td></tr>
 </table>
 {% endfor %}
 {% endblock %}
