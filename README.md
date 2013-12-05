@@ -16,7 +16,7 @@ The user also has access to a page showing all their charts, from which they can
 ###Next Steps
 The next steps for this project is the OCR engine for interpreting the images into usable information.
 
-###Screenshot
+###Screenshots
 ![Alt text](screenshots/new_chart_form.jpg "Screenshot of the new chart form")
 ![Alt text](screenshots/charts_view.jpg "Screenshot of the user's charts")
 ![Alt text](screenshots/directions_view.jpg "Screenshot of the directions page")
